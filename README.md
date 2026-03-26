@@ -1,4 +1,4 @@
-# Real-Time Fraud Detection Pipeline (Kafka + ML) 🚀
+# **Real-Time Fraud Detection Pipeline (Kafka + ML) 🚀**
 
 A high-performance ETL pipeline that detects fraudulent transactions in real-time using **Apache Kafka** for data streaming and **Isolation Forest (Machine Learning)** for anomaly detection.
 
@@ -11,7 +11,7 @@ This project simulates a financial transaction stream and identifies suspicious 
 3. **Consumer (ML Analysis):**  
    - Buffers the first 50 transactions to learn the "Normal" pattern.  
    - Uses **Isolation Forest** to detect outliers in real-time.  
-4. **Storage (Load):** Automatically logs all detected frauds into a local `fraud_alerts.csv` file.
+4. **Storage (Load):** Automatically logs all detected frauds into a local `fraud_details.csv` file.
 
 ## 🛠️ Tech Stack
 - **Streaming:** Apache Kafka  
@@ -22,34 +22,53 @@ This project simulates a financial transaction stream and identifies suspicious 
 
 ## 🚀 How to Run
 1. **Start Kafka Environment**
-   ```bash
+```bash
    docker-compose up -d
+```
 2. **Install Dependencies**
-   ```bash
-pip install -r requirements.txt
+```bash
+   pip install -r requirements.txt
+```
 3. **Start Detection Engine**
+
 Open two terminals:
 
-Terminal 1: python producer.py
-
-Terminal 2: python consumer.py
+- Terminal 1: 
+```bash
+   python producer.py
+```
+- Terminal 2: 
+```bash
+   python consumer.py
+```
 
 ## 📊 ML Logic: Why Isolation Forest?
 Unlike simple thresholding (e.g., amount > 5000), the Isolation Forest algorithm identifies anomalies based on how "isolated" a data point is from the rest of the cluster. This allows the system to detect:
+- Unusually high amounts.
+- Unusually low "ping" transactions (used by hackers to test cards).
+- Patterns that deviate from the learned baseline.
 
-Unusually high amounts.
+## 🎓 Workshop-Ready Content
+This project is structured to be delivered as a **4-5 hour technical workshop**.
 
-Unusually low "ping" transactions (used by hackers to test cards).
+### **Learning Outcomes:**
+- **Kafka Fundamentals:** Understanding Producers, Consumers and Brokers in Docker.
+- **Real-Time ETL:** Building a data pipeline that processes events as they happen.
+- **Unsupervised ML:** Implementing Anomaly Detection (Isolation Forest) on live data.
+- **System Monitoring:** Logging and auditing fraud alerts into structured formats.
 
-Patterns that deviate from the learned baseline.
+### **Target Audience:**
+- Data Science Interns / Students
+- Aspiring Data Engineers
+- Fintech Enthusiasts
 
 ## 📂 Project Structure
-producer.py: Data generation service.
-
-consumer.py: ML engine & CSV logger.
-
-docker-compose.yml: Kafka & Zookeeper configuration.
-
-fraud_alerts.csv: (Generated locally) Log of all flagged frauds.
-
-make it proper in a single block readme file content
+```text
+StockProject/
+├── .gitignore
+├── consumer.py
+├── docker-compose.yml
+├── producer.py
+├── README.md
+├── requirements.txt
+└── fraud_details.csv  (Generated locally)
