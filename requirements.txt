@@ -1,0 +1,5 @@
+# hey, i have used kafka, so make sure u have Docker installed with Kafka
+kafka-python==2.3.0
+pandas==3.0.1
+numpy==2.4.3
+scikit-learn==1.8.0
