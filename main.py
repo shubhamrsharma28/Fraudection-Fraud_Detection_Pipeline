@@ -115,6 +115,11 @@ for message in consumer:
     else:
         status = "Normal"
     
+    #now this new_row is the new row im adding/concatinating in the data table so that the latest transaction 
+    # data stays on top everytime and old transaction details gets to the bottom of the table.
+    new_row = pd.DataFrame([[tx['transaction_id'], tx['amount'], tx['type'], status]],
+                           columns=["Transaction_ID", "Amount", "Type", "Status"])
+    
     #here im everytime adding 1 in both Normal and fraud count by checking what it is to display total count of each
     if status == "🚨FRAUD🚨":
         st.session_state.counts["Fraud"] += 1
@@ -124,10 +129,6 @@ for message in consumer:
     else:    
         st.session_state.counts["Normal"] += 1
 
-    #now this new_row is the new row im adding/concatinating in the data table so that the latest transaction 
-    # data stays on top everytime and old transaction details gets to the bottom of the table.
-    new_row = pd.DataFrame([[tx['transaction_id'], tx['amount'], tx['type'], status]],
-                           columns=["Transaction_ID", "Amount", "Type", "Status"])
     st.session_state.data = pd.concat([new_row, st.session_state.data]).reset_index(drop=True)
 
     with placeholder_table.container(height=350):
