@@ -13,3 +13,13 @@ Thumbs.db
 # IDE Specific
 .vscode/
 .idea/
+
+# Python virtual environments
+venv/
+.env
+
+# Kafka/Docker logs (Optional but good)
+*.log
+
+# Streamlit temporary files
+.streamlit/config.toml

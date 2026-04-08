@@ -4,7 +4,7 @@
 This project focuses on optimizing financial data pipelines for real-time anomaly detection. In the banking sector, identifying fraudulent transactions the moment they occur is critical. Traditional batch processing often misses these windows of opportunity. This workshop demonstrates how to build a high-speed pipeline using Apache Kafka for streaming and Machine Learning for intelligent detection.
 
 ## Problem Statement
-Financial institutions like Finastra handle millions of transactions per second. Manual monitoring or simple rule-based systems (like flagging everything over $5000) fail to catch sophisticated fraud patterns. We need a system that learns "normal" behavior and flags deviations instantly without human intervention.
+Financial institutions like Finastra handle millions of transactions per second. Manual monitoring or simple rule-based systems fail to catch sophisticated fraud patterns and industries have just around 300 milliseconds to identify whether a transaction is FRAUD or NOT.So, we need a system that learns "normal" behavior and flags deviations instantly without human intervention within 300 milliseconds.
 
 ## Tools and Technologies Used
 * **Apache Kafka:** Used as the distributed backbone for streaming data between services.
@@ -16,7 +16,7 @@ Financial institutions like Finastra handle millions of transactions per second.
 The system follows a 4-step data lifecycle:
 1. **Extract:** The Producer generates synthetic transaction data.
 2. **Stream:** Kafka Brokers handle the high-speed data flow.
-3. **Analyze:** The Consumer applies an ML model to the live stream.
+3. **Analyze & Visualize:** The Consumer uses Streamlit to provide a real-time visual dashboard, applying the ML model to the live stream.
 4. **Report:** Anomalies are logged into a CSV file for audit trails.
 
 
@@ -32,22 +32,23 @@ docker-compose up -d
 Install the necessary Python libraries to interact with Kafka and run the Machine Learning model.
 
 ```bash
-pip install kafka-python
+pip install requirements.txt
 ```
-```bash
-pip install scikit-learn
-```
-```bash
-pip install numpy
-```
-### Step 3: Developing the Data Producer
+
+### Step 3: Running the Pipeline
 The producer simulates a live bank feed. It sends JSON messages containing a transaction ID, amount and type to a Kafka topic named test-topic.
 
+Run this in terminal of project folder's directory/path
 ```bash
 python producer.py
 ```
 
-### Step 4: Building the ML Consumer
+Then inside VS Code's terminal, run
+```bash
+streamlit run main.py
+```
+
+### Step 4: Building the Streamlit Dashboard
 This is the core of the project. The consumer performs three main tasks:
 
 1. Why Unsupervised Learning?
@@ -59,10 +60,14 @@ We chose Isolation Forest because it is built specifically for anomaly detection
 3. The Implementation Logic
 The consumer buffers the first 50 transactions to establish a "baseline" of normal activity. Once trained, every new transaction is scored. If the model sees a transaction that looks statistically different from the baseline, it flags it as FRAUD.
 
-### Step 5: Auditing and Results
-To ensure the project is workshop-ready, we log every flagged transaction into a local file. This serves as a "Fraud Report" for stakeholders.
+- **Real-Time UI:** Instead of terminal logs, we use Streamlit to visualize live metrics, transaction tables, and trend charts.
 
-StockProject/fraud_alerts.csv
+- **Live Monitoring:** The dashboard connects to the Kafka stream and updates the UI dynamically using placeholders
+
+### Step 5: Auditing and Results
+To ensure the project is workshop-ready, we log every flagged transaction into a local file. This serves as a "Fraud Details" for stakeholders.
+
+StockProject/fraud_details.csv
 
 ## Workshop Learning Outcomes
 - By completing this project, learners will understand:
