@@ -6,22 +6,23 @@ A high-performance ETL pipeline that detects fraudulent transactions in real-tim
 This project simulates a financial transaction stream and identifies suspicious activities (anomalies) without any pre-labeled data. It transitions from a simple rule-based approach to a sophisticated **Unsupervised Machine Learning** model.
 
 ## 🏗️ Architecture
-1. **Producer (Extract):** Generates random transaction data and streams it to Kafka.  
-2. **Kafka (Transform/Stream):** Acts as a distributed message broker (running on Docker).  
-3. **Consumer (ML Analysis):**  
-   - Buffers the first 50 transactions to learn the "Normal" pattern.  
-   - Uses **Isolation Forest** to detect outliers in real-time.  
-4. **Storage (Load):** Automatically logs all detected frauds into a local `fraud_details.csv` file.
+1. [cite_start]**Producer (Extract):** Generates random transaction data and streams it to Kafka. [cite: 15]
+2. [cite_start]**Kafka (Transform/Stream):** Acts as a distributed message broker (running on Docker). [cite: 16, 22]
+3. **Consumer & Dashboard (ML Analysis):** - Built with **Streamlit** for a real-time visual interface.
+   - [cite_start]Buffers the first 50 transactions to train the **Isolation Forest** model. [cite: 27, 40]
+   - Uses **Plotly** for live transaction trend charts.
+4. [cite_start]**Audit Logging (Storage):** Automatically records all flagged frauds into `fraud_details.csv`. [cite: 18, 32]
 
 ## 🛠️ Tech Stack
-- **Streaming:** Apache Kafka  
-- **Infrastructure:** Docker & Docker-Compose  
-- **Language:** Python 3.x  
-- **Machine Learning:** Scikit-Learn (Isolation Forest)  
-- **Data Handling:** Pandas, Numpy  
+- **Dashboard:** Streamlit (UI), Plotly (Visualizations)
+- [cite_start]**Streaming:** Apache Kafka [cite: 22]
+- [cite_start]**Infrastructure:** Docker & Docker-Compose [cite: 20]
+- [cite_start]**Machine Learning:** Scikit-Learn (Isolation Forest) [cite: 23]
+- [cite_start]**Data Handling:** Pandas, Numpy [cite: 23]  
 
 ## 🚀 How to Run
 1. **Start Kafka Environment**
+- Open Terminal in your Project Folder:
 ```bash
    docker-compose up -d
 ```
@@ -29,17 +30,15 @@ This project simulates a financial transaction stream and identifies suspicious 
 ```bash
    pip install -r requirements.txt
 ```
-3. **Start Detection Engine**
+3. **Start Detection Pipeline**
 
-Open two terminals:
-
-- Terminal 1: 
+- In same Docker terminal: 
 ```bash
    python producer.py
 ```
-- Terminal 2: 
+- In VS Code's Terminal: 
 ```bash
-   python consumer.py
+   streamlit run main.py
 ```
 
 ## 📊 ML Logic: Why Isolation Forest?

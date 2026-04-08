@@ -115,7 +115,7 @@ for message in consumer:
     else:
         status = "Normal"
     
-    #here im everytime adding 1 in both Normal and fraud count by checking what it is
+    #here im everytime adding 1 in both Normal and fraud count by checking what it is to display total count of each
     if status == "🚨FRAUD🚨":
         st.session_state.counts["Fraud"] += 1
         log_file = "fraud_details.csv"
