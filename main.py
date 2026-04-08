@@ -140,6 +140,7 @@ for message in consumer:
         c2.metric("Total Frauds detected: ", st.session_state.counts['Fraud'], delta_color="inverse")
         c3.metric("System Health: ", "98.7%", delta="Stable")
 
+    #here im using plotly to display the chart of Normal and FRAUD transaction numbers 
     fig = go.Figure(data=[
         go.Bar(name="Normal", x=["Transactions"], y=[st.session_state.counts['Normal']], marker_color='green'),
         go.Bar(name="🚨FRAUD🚨", x=["Transactions"], y=[st.session_state.counts['Fraud']], marker_color="red")
@@ -149,4 +150,4 @@ for message in consumer:
     with placeholder_chart:
         st.plotly_chart(fig, use_container_width=True)
 
-    time.sleep(1.5)
+    time.sleep(1.5) #i added time sleep of 1.5secs so that it takes data after every 1.5sec 
