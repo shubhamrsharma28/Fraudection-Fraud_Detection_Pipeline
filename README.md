@@ -6,19 +6,19 @@ A high-performance ETL pipeline that detects fraudulent transactions in real-tim
 This project simulates a financial transaction stream and identifies suspicious activities (anomalies) without any pre-labeled data. It transitions from a simple rule-based approach to a sophisticated **Unsupervised Machine Learning** model.
 
 ## 🏗️ Architecture
-1. [cite_start]**Producer (Extract):** Generates random transaction data and streams it to Kafka. [cite: 15]
-2. [cite_start]**Kafka (Transform/Stream):** Acts as a distributed message broker (running on Docker). [cite: 16, 22]
+1. **Producer (Extract):** Generates random transaction data and streams it to Kafka. 
+2. **Kafka (Transform/Stream):** Acts as a distributed message broker (running on Docker). 
 3. **Consumer & Dashboard (ML Analysis):** - Built with **Streamlit** for a real-time visual interface.
-   - [cite_start]Buffers the first 50 transactions to train the **Isolation Forest** model. [cite: 27, 40]
+   - Buffers the first 50 transactions to train the **Isolation Forest** model.
    - Uses **Plotly** for live transaction trend charts.
-4. [cite_start]**Audit Logging (Storage):** Automatically records all flagged frauds into `fraud_details.csv`. [cite: 18, 32]
+4. **Audit Logging (Storage):** Automatically records all flagged frauds into `fraud_details.csv`. 
 
 ## 🛠️ Tech Stack
 - **Dashboard:** Streamlit (UI), Plotly (Visualizations)
-- [cite_start]**Streaming:** Apache Kafka [cite: 22]
-- [cite_start]**Infrastructure:** Docker & Docker-Compose [cite: 20]
-- [cite_start]**Machine Learning:** Scikit-Learn (Isolation Forest) [cite: 23]
-- [cite_start]**Data Handling:** Pandas, Numpy [cite: 23]  
+- **Streaming:** Apache Kafka 
+- **Infrastructure:** Docker & Docker-Compose 
+- **Machine Learning:** Scikit-Learn (Isolation Forest) 
+- **Data Handling:** Pandas, Numpy 
 
 ## 🚀 How to Run
 1. **Start Kafka Environment**
